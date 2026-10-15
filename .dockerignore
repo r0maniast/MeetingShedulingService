@@ -1,0 +1,6 @@
+.git
+.idea
+.mvn
+target
+HELP.md
+compose.yaml

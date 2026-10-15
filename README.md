@@ -18,6 +18,15 @@ The webhook endpoint is `POST /api/telegram/updates`. Configure Telegram to send
 updates to `https://<your-public-domain>/api/telegram/updates`; a tunnel is enough
 for local testing.
 
+## Deploy to Koyeb
+
+The included `Dockerfile` builds the application with Java 17 and uses Koyeb's
+`PORT` environment variable. Create a **Web Service** from this repository and
+add `DATABASE_ENABLED`, `SUPABASE_DB_URL`, `SUPABASE_DB_USERNAME`,
+`SUPABASE_DB_PASSWORD`, and `TELEGRAM_BOT_TOKEN` as environment variables.
+After deployment, set Telegram's webhook to
+`https://<koyeb-service-domain>/api/telegram/updates`.
+
 ## Supabase database
 
 By default the service uses in-memory storage, which is useful for local command
