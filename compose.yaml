@@ -1,9 +1,13 @@
 services:
-  postgres:
-    image: 'postgres:latest'
+  app:
+    build: .
     environment:
-      - 'POSTGRES_DB=mydatabase'
-      - 'POSTGRES_PASSWORD=secret'
-      - 'POSTGRES_USER=myuser'
+      DATABASE_ENABLED: "true"
+      SUPABASE_DB_URL: ${SUPABASE_DB_URL:?Set SUPABASE_DB_URL}
+      SUPABASE_DB_USERNAME: ${SUPABASE_DB_USERNAME:-postgres}
+      SUPABASE_DB_PASSWORD: ${SUPABASE_DB_PASSWORD:?Set SUPABASE_DB_PASSWORD}
+      TELEGRAM_BOT_TOKEN: ${TELEGRAM_BOT_TOKEN:?Set TELEGRAM_BOT_TOKEN}
+      PORT: "8080"
+      SPRING_DOCKER_COMPOSE_ENABLED: "false"
     ports:
-      - '5432'
+      - '8080:8080'
