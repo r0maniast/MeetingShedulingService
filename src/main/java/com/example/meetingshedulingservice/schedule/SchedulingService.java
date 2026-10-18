@@ -65,6 +65,16 @@ public class SchedulingService {
                 .orElse("Ближайшая общая свободная дата: " + nearest + ". Событие уже создано.");
     }
 
+    public synchronized String sessions(long chatId) {
+        Collection<GameSession> sessions = repository.sessionsAfter(chatId, LocalDate.now());
+        if (sessions.isEmpty()) {
+            return "Будущих игровых сессий пока нет.";
+        }
+        return "Запланированные игровые сессии:\n" + sessions.stream()
+                .map(session -> session.date() + " — " + session.title())
+                .collect(java.util.stream.Collectors.joining("\n"));
+    }
+
     private Optional<GameSession> createSessionIfEveryoneIsFree(long chatId, LocalDate date) {
         Collection<Participant> participants = repository.participants(chatId);
         if (participants.isEmpty() || participants.stream()

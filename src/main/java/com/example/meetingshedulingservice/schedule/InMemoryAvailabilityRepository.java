@@ -69,6 +69,14 @@ public class InMemoryAvailabilityRepository implements AvailabilityRepository {
     }
 
     @Override
+    public synchronized Collection<GameSession> sessionsAfter(long chatId, LocalDate date) {
+        return sessions.values().stream()
+                .filter(session -> session.chatId() == chatId && session.date().isAfter(date))
+                .sorted(java.util.Comparator.comparing(GameSession::date))
+                .toList();
+    }
+
+    @Override
     public synchronized Optional<GameSession> saveSessionIfAbsent(GameSession session) {
         String key = session.chatId() + ":" + session.date();
         if (sessions.containsKey(key)) {

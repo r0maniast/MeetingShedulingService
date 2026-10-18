@@ -21,4 +21,6 @@ public interface AvailabilityRepository {
     Set<LocalDate> freeDates(long chatId, long telegramUserId);
 
     Optional<GameSession> saveSessionIfAbsent(GameSession session);
+
+    Collection<GameSession> sessionsAfter(long chatId, LocalDate date);
 }

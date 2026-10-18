@@ -33,6 +33,7 @@ public class BotUpdateService {
             case "/free" -> Optional.of(withDate(parts, date -> schedulingService.markFree(chatId, userId, date)));
             case "/busy" -> Optional.of(withDate(parts, date -> schedulingService.markBusy(chatId, userId, date)));
             case "/schedule" -> Optional.of(schedulingService.schedule(chatId));
+            case "/sessions" -> Optional.of(schedulingService.sessions(chatId));
             default -> Optional.empty();
         };
     }
@@ -53,6 +54,6 @@ public class BotUpdateService {
     }
 
     private String help() {
-        return "Команды:\n/join — участвовать в планировании\n/leave — выйти из планирования\n/free ГГГГ-ММ-ДД — свободен\n/busy ГГГГ-ММ-ДД — занят\n/schedule — проверить общую дату";
+        return "Команды:\n/join — участвовать в планировании\n/leave — выйти из планирования\n/free ГГГГ-ММ-ДД — свободен\n/busy ГГГГ-ММ-ДД — занят\n/schedule — проверить общую дату\n/sessions — игровые сессии после сегодняшнего дня";
     }
 }

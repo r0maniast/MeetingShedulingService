@@ -80,6 +80,17 @@ public class JdbcAvailabilityRepository implements AvailabilityRepository {
     }
 
     @Override
+    public Collection<GameSession> sessionsAfter(long chatId, LocalDate date) {
+        return jdbcTemplate.query("select telegram_chat_id, scheduled_for, title from game_sessions "
+                        + "where telegram_chat_id = ? and scheduled_for > ? order by scheduled_for",
+                (resultSet, rowNum) -> new GameSession(
+                        resultSet.getLong("telegram_chat_id"),
+                        resultSet.getObject("scheduled_for", LocalDate.class),
+                        resultSet.getString("title")),
+                chatId, Date.valueOf(date));
+    }
+
+    @Override
     public Optional<GameSession> saveSessionIfAbsent(GameSession session) {
         List<GameSession> sessions = jdbcTemplate.query("insert into game_sessions "
                         + "(telegram_chat_id, scheduled_for, title) values (?, ?, ?) "
