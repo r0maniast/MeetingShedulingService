@@ -16,6 +16,7 @@ public interface AvailabilityRepository {
 
     void markFree(long chatId, long telegramUserId, LocalDate date);
 
+    /** Removes availability and any game session on this date in the same chat atomically. */
     void markBusy(long chatId, long telegramUserId, LocalDate date);
 
     Set<LocalDate> freeDates(long chatId, long telegramUserId);

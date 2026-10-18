@@ -41,7 +41,7 @@ public class SchedulingService {
             return "Сначала присоединитесь: /join";
         }
         repository.markBusy(chatId, userId, date);
-        return "Дата " + date + " больше не отмечена как свободная.";
+        return "Дата " + date + " больше не отмечена как свободная. Игровая сессия на эту дату удалена, если была запланирована.";
     }
 
     public synchronized String schedule(long chatId) {

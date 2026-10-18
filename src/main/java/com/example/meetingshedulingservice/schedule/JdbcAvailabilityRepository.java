@@ -66,10 +66,13 @@ public class JdbcAvailabilityRepository implements AvailabilityRepository {
     }
 
     @Override
+    @Transactional
     public void markBusy(long chatId, long telegramUserId, LocalDate date) {
         jdbcTemplate.update("delete from participant_availability "
                         + "where telegram_chat_id = ? and telegram_user_id = ? and available_on = ?",
                 chatId, telegramUserId, Date.valueOf(date));
+        jdbcTemplate.update("delete from game_sessions where telegram_chat_id = ? and scheduled_for = ?",
+                chatId, Date.valueOf(date));
     }
 
     @Override

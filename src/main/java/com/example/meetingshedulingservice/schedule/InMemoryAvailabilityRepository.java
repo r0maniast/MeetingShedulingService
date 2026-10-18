@@ -60,6 +60,7 @@ public class InMemoryAvailabilityRepository implements AvailabilityRepository {
         if (dates != null && dates.get(telegramUserId) != null) {
             dates.get(telegramUserId).remove(date);
         }
+        sessions.remove(chatId + ":" + date);
     }
 
     @Override
